@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ya8qhtt7krc5"]
+
+[ext_resource type="PackedScene" uid="uid://3njn3bydj3vq" path="res://assets/world/downtown-city/Street_4WayIntersection.gltf" id="1_t47k4"]
+[ext_resource type="Texture2D" uid="uid://beukhw71emp85" path="res://assets/world/downtown-city/T_Concrete_BaseColor.png" id="2_0iqvr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wo831"]
+albedo_texture = ExtResource("2_0iqvr")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d0iu3"]
+size = Vector3(18.038086, 0, 17.978271)
+
+[node name="Intersection" type="Node3D" unique_id=268612413]
+
+[node name="Street_4WayIntersection2" parent="." unique_id=1788748006 instance=ExtResource("1_t47k4")]
+
+[node name="Street_4WayIntersection" parent="Street_4WayIntersection2" index="0" unique_id=2105527054]
+surface_material_override/2 = SubResource("StandardMaterial3D_wo831")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1936011857]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=621022268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.001953125)
+shape = SubResource("BoxShape3D_d0iu3")
+
+[editable path="Street_4WayIntersection2"]
