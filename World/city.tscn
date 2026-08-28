@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ca1v04yfomn48" path="res://assets/world/downtown-city/Brick_CornerColumn_Top.gltf" id="10_qqaq0"]
 [ext_resource type="PackedScene" uid="uid://csjpxycfbgwd5" path="res://assets/world/downtown-city/Brick_TopTrim.gltf" id="11_0t0ew"]
 [ext_resource type="PackedScene" uid="uid://c0qws640n00h8" path="res://assets/world/downtown-city/Building_Large_2.gltf" id="12_y08ys"]
+[ext_resource type="PackedScene" uid="uid://drvwkmhd1lvhx" path="res://NPCs/dummy.tscn" id="13_i2y3l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t328f"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -543,3 +544,15 @@ shape = SubResource("BoxShape3D_d0iu3")
 
 [node name="Building_Large_22" parent="Buildings" unique_id=2083654350 instance=ExtResource("12_y08ys")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -10)
+
+[node name="Dummy" parent="." unique_id=1439334113 instance=ExtResource("13_i2y3l")]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 6.389407, -1.1920929e-07, -28.395073)
+
+[node name="Dummy3" parent="." unique_id=990078136 instance=ExtResource("13_i2y3l")]
+transform = Transform3D(0.86602545, 0, 0.5, 0, 1, 0, -0.5, 0, 0.86602545, -6.610593, -1.1920929e-07, -17.395073)
+
+[node name="Dummy4" parent="." unique_id=311002129 instance=ExtResource("13_i2y3l")]
+transform = Transform3D(-0.25881898, 0, 0.9659259, 0, 1, 0, -0.9659259, 0, -0.25881898, -6.610593, -1.1920929e-07, 0.60492706)
+
+[node name="Dummy2" parent="." unique_id=485725724 instance=ExtResource("13_i2y3l")]
+transform = Transform3D(2.598076, 0, -1.5, 0, 3, 0, 1.5, 0, 2.598076, -13.610593, -1.1920929e-07, -22.395073)
