@@ -8,7 +8,7 @@ class_name Player
 
 @export_group("Camera")
 @export_range(0.0, 1.0) var mouse_sensitivity: float = 0.25
-@export var aim_sensitivity: float = 0.05
+@export var aim_sensitivity: float = 0.15
 @export var tilt_upper_limit: float = PI / 4.0
 @export var tilt_lower_limit: float = -PI / 4.0
 
@@ -44,6 +44,8 @@ var _last_movement_direction := Vector3.BACK
 var move_speed: float
 var locked: bool = false
 
+var aim_tween
+
 func _ready() -> void:
 	# Default to 3rd person
 	move_speed = walk_speed
@@ -66,20 +68,10 @@ func _input(event: InputEvent) -> void:
 		move_speed = walk_speed
 		run = false
 	if event.is_action_pressed("right_click"):
-		aiming = true
-		spring_arm_3d.position = Vector3(.5,1.45,0)
-		spring_arm_3d.spring_length = 1.0
-		%Crosshair.show()
-		pistol.visible = true
-		animation_tree.set("parameters/aiming/blend_amount", lerp(animation_tree.get("parameters/aiming/blend_amount"), 1.0, 1.0))
+		set_aim(true)
 
 	elif event.is_action_released("right_click"):
-		aiming = false
-		spring_arm_3d.position = Vector3(0,1.45,0)
-		spring_arm_3d.spring_length = 3.0
-		%Crosshair.hide()
-		pistol.visible = false
-		animation_tree.set("parameters/aiming/blend_amount", lerp(animation_tree.get("parameters/aiming/blend_amount"), 0.0, 1.0))
+		set_aim(false)
 	if event is InputEventMouseMotion: #Camera rotaion input capture
 		if event is InputEventMouseMotion:
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -149,6 +141,29 @@ func lock():
 ###Unlocks Player Movment
 func unlock():
 	locked = false
+
+func set_aim(is_aiming : bool):
+	aiming = is_aiming
+	pistol.visible = is_aiming
+	
+	if aim_tween and aim_tween.is_valid(): #good practice to kill exsisting tweens
+		aim_tween.kill()
+	aim_tween = create_tween()
+	aim_tween.set_parallel(true)
+	aim_tween.set_trans(Tween.TRANS_CUBIC)
+	aim_tween.set_ease(Tween.EASE_OUT)
+	
+	if is_aiming:
+		aim_tween.tween_property(spring_arm_3d, "position", Vector3(.5,1.45,0), 0.3)
+		aim_tween.tween_property(spring_arm_3d, "spring_length", 1.0, 0.3)
+		aim_tween.tween_property(animation_tree, "parameters/aiming/blend_amount", 1.0, 0.3)
+		await aim_tween.finished
+		%Crosshair.show()
+	else:
+		%Crosshair.hide()
+		aim_tween.tween_property(spring_arm_3d, "position", Vector3(0,1.45,0), 0.3)
+		aim_tween.tween_property(spring_arm_3d, "spring_length", 3.0, 0.3)
+		aim_tween.tween_property(animation_tree, "parameters/aiming/blend_amount", 0.0, 0.3)
 
 func shoot():
 	shooting = true
