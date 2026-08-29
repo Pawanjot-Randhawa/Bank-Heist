@@ -104,6 +104,7 @@ func _physics_process(delta: float) -> void:
 	if aiming:
 		var target_angle := camera_pivot.global_rotation.y
 		%Man.global_rotation.y = lerp_angle(%Man.rotation.y, target_angle + PI, rotation_speed * delta * 2)
+		_last_movement_direction = Vector3.BACK.rotated(Vector3.UP, %Man.global_rotation.y)
 	else:
 		if direction.length() > 0.2:
 			_last_movement_direction = direction
